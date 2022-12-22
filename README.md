@@ -5,7 +5,7 @@
   
   Compenente utilizate:
   
-  Arduino Nano - ATMEL328p
+  Arduino Nano - ATMEL328p <br />
   Display - SSD1306 OLED
   RTC - DS1307
   Rotary Encoder
