@@ -791,18 +791,22 @@ uint8_t NivelApa()  {
 void EcranOLED(byte codE){
   display.clearDisplay();
   switch(codE){
-    case 0:    
+    case 0:  
+      display.setTextSize(2);  
       display.setCursor(0, 20);
       display.print("Vas GOL");
       display.setCursor(0, 40);     
       display.print("APA: 0%");
+      display.setTextSize(1);
       delay(1000);
       break;
     case 5:
+      display.setTextSize(2);
       display.setCursor(0, 20);
       display.print("Eroare");
       display.setCursor(0, 40);     
       display.print("senzor APA");
+      display.setTextSize(1);
       delay(1000);
       break;
     case 3:
