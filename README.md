@@ -3,7 +3,7 @@
   Am inceput acest proiect, avand in vedere nevoia de a uda ghivecele cu flori din balcon atunci cand sunt plecat in vacante.
   
   
-  Compenente utilizate:
+  Componente utilizate:
   
   Arduino Nano - ATMEL328p <br />
   Display - SSD1306 OLED <br />
@@ -16,7 +16,7 @@
   Pentru indicatorul de nivel apa, m-am inspirat de aici ->
   https://create.arduino.cc/projecthub/Pedro52/arduino-esp32-diy-water-level-sensor-and-diy-level-indicator-3d513d
   
-  pentru intreruperile necesare funcionarii rotary encoder ->
+  pentru intreruperile necesare funcionarii rotary encoder, m-am inspirat de aici ->
   https://duino4projects.com/easy-arduino-menus-rotary-encoders/  
   
   
