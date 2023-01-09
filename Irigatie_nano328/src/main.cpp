@@ -69,6 +69,7 @@ const char *const meniuri[] PROGMEM = {menu0, menu1, menu2, menu3, menu4, menu5,
 /*********************************************************************/
 
 //void(* resetFunc) (void) = 0;  // declare reset fuction at address 0  resetFunc(); //call reset
+
 uint8_t OperatiiEprom(boolean , byte, byte);
 uint8_t ZileFunctionare(byte );
 uint8_t SetareCeas();
@@ -90,13 +91,13 @@ void ScriereTimp();
 
 
 void setup() {
-  DDRB  |= (1 << alimentareSenzorApa) | (1 << builtinLed);;                                                                      // D8 - OUTPUT
-  PORTB |= (0 << alimentareSenzorApa) | (0 << builtinLed);                                                                     // PB4(D12) ??? LOW - Alimentaresenzor - 0V
+  DDRB  |= (1 << alimentareSenzorApa) | (1 << builtinLed);        // D8 - OUTPUT
+  PORTB |= (0 << alimentareSenzorApa) | (0 << builtinLed);        // PB4(D12) ??? LOW - Alimentaresenzor - 0V
 
   DDRD  |= (0 << pinA) | (0 << pinB) | (1 << pornirePompa) | (0 << butSetup) | (0 << butEncoder) | (0 << butonManual_Auto);   /*Setam D2, D3 - intr. encoder, D5 Output-uri, D4 - butSetup, D6 - butEncoder, D7 - butManual*/
-  PORTD |= (1 << pornirePompa) | (1 << pinA) | (1 << pinB) | (1 << butSetup) | (1 << butEncoder);                             // PD5 HIGH - releu OFF
+  PORTD |= (1 << pornirePompa) | (1 << pinA) | (1 << pinB) | (1 << butSetup) | (1 << butEncoder);       // PD5 HIGH - releu OFF
   
-  DDRC  |= (0 << senzorApaPin);                                                                           //pinMode(senzorApaPin, INPUT);
+  DDRC  |= (0 << senzorApaPin);       //pinMode(senzorApaPin, INPUT);
 
   EICRA |= 0xF;
   PCICR |= (1 << PCIE2);
@@ -115,7 +116,7 @@ void setup() {
 
   oraReferinta = OperatiiEprom(citire, 0, 0);
   divizorMinut = OperatiiEprom(citire, 1, 0);
-  tmpFunc = (OperatiiEprom(citire, 2, 0) * 60000) / 60; //de ce nu functioneaza *1000 ????????
+  tmpFunc = (OperatiiEprom(citire, 2, 0) * 60000) / 60; 
   delay(10);
 }
 
@@ -134,8 +135,8 @@ void loop() {
 
 /*  1 - start irigatie
     2 - setare parametri
-    3 - constructie ...setare ceas???*/
-void MenuPrincipal(){                                               //DE FACUT FUNCTIE DE EXIT TEMPORIZATA
+    3 - setare ceas */
+void MenuPrincipal(){                                               
   butonApasat = 0; 
   idleMenu = millis();
   byte lastEncoderPos = 0;
@@ -236,6 +237,8 @@ void MenuPrincipal(){                                               //DE FACUT F
   }//while(1)
 }
 
+/*afisare Menu principal si submeniuri, 
+  de facut: chenarul meniurilor... */
 void DisplayMenu(){
   display.clearDisplay();
   byte coorddonataY[4] = {5, 22, 39, 55};
@@ -276,12 +279,10 @@ void DisplayMenu(){
 } 
 
 /*operatie 1 - scriere, 0 citire
-  adresa 0 - Ora irigat, 1 - Divizor minut, 2 - Timp functionare*/
+  adresa 0 - Ora irigat, 1 - Divizor minut, 2 - Timp functionare, 
+  3 -> 9 - Zile Functionare */
 uint8_t OperatiiEprom(boolean operatie, byte addr, byte val){
   if(operatie){
-    display.clearDisplay();
-    display.setCursor(50, 0);
-    display.print(val);
     EEPROM.write(addr, val);
     return 0;
   }
@@ -456,6 +457,7 @@ uint8_t SetareCeas(){
   if ((luna % 2 != 0) && luna > 8 && zi == 31) zi = 30;
   if ((an % 4 == 0) && luna == 2 && zi > 29) zi = 29;
   if ((an % 4 != 0) && luna == 2 && zi > 28) zi = 28;  
+  
   display.display();
   } //While
 }//SetareCeas
